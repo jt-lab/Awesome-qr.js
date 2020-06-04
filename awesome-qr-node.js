@@ -996,7 +996,7 @@ var Drawing = (function() { // Drawing in Canvas
         this._bindElement = htOption.bindElement;
     };
 
-    Drawing.prototype.draw = function(oQRCode) {
+    Drawing.prototype.draw = async function(oQRCode) {
         var _htOption = this._htOption;
 
         var nCount = oQRCode.getModuleCount();
@@ -1046,7 +1046,7 @@ var Drawing = (function() { // Drawing in Canvas
             if (_htOption.autoColor) {
                 //console.log(typeof(_htOption.backgroundImage));
                 //console.log(_htOption.backgroundImage);
-                var avgRGB = getAverageRGB(_htOption.backgroundImage);
+                var avgRGB = await getAverageRGB(_htOption.backgroundImage);
                 _htOption.colorDark = "rgb(" + avgRGB.r + ", " + avgRGB.g + ", " + avgRGB.b + ")";
             }
 
@@ -1473,8 +1473,8 @@ AwesomeQRCode.CorrectLevel = QRErrorCorrectLevel;
 
 function getAverageRGB(imgSrc) {
     var imgEl = new Image();
-    imgEl.src = imgSrc;
-    var blockSize = 5,
+    imgEl.onload = () => {
+        var blockSize = 5,
         defaultRGB = {
             r: 0,
             g: 0,
@@ -1521,7 +1521,11 @@ function getAverageRGB(imgSrc) {
     rgb.g = ~~(rgb.g / count);
     rgb.b = ~~(rgb.b / count);
 
-    return rgb;
+    return new Promise(resolve=>resolve(rgb));
+    }
+imgEl.onerror = err => { throw err }
+    imgEl.src = imgSrc;
+    
 }
 
 module.exports = AwesomeQRCode;
