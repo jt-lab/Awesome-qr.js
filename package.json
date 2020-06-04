@@ -22,7 +22,7 @@
     },
     "homepage": "https://github.com/SumiMakito/Awesome-qr.js#readme",
     "dependencies": {
-        "canvas-prebuilt": "https://github.com/node-gfx/node-canvas-prebuilt.git",
+        "canvas": "^2.6.1",
         "request": "^2.83.0"
     }
 }
