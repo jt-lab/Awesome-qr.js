@@ -33,7 +33,7 @@
 let fs = require('fs');
 let http = require('http');
 let url = require('url');
-let Canvas = require('canvas-prebuilt');
+let Canvas = require('canvas');
 let Image = Canvas.Image;
 let request = require('request');
 
